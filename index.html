@@ -1,162 +1,470 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CSS Transitions — Propriedades</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AURÉA VOYAGES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style2.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#f7f3ec;--warm:#ede7da;--paper:#faf8f4;--sand:#d4c5a9;
+  --copper:#b5703a;--rust:#8b3a1e;--sky:#c8dff0;
+  --text:#2a2018;--muted:#8a7d6a;--border:#e0d8cc;
+}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 3rem;
+  background:rgba(247,243,236,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;letter-spacing:.1em;color:var(--text)}
+.logo em{font-style:italic;color:var(--copper)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+
+/* ╔══════════════════════════════════════╗
+   ║  TRANSIÇÃO 1 — links do menu         ║
+   ║  color + letter-spacing + underline  ║
+   ╚══════════════════════════════════════╝ */
+.nav-links a{
+  font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;position:relative;padding-bottom:3px;
+  transition: color .4s ease, letter-spacing .4s ease;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:var(--copper);transform:scaleX(0);transform-origin:left;
+  transition:transform .4s ease;
+}
+.nav-links a:hover,
+.nav-links a.t1-demo{color:var(--copper);letter-spacing:.22em}
+.nav-links a:hover::after,
+.nav-links a.t1-demo::after{transform:scaleX(1)}
+
+.nav-cta{
+  font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:.55rem 1.5rem;background:var(--copper);color:#fff;
+  border:none;border-radius:2px;cursor:pointer;
+  transition:background .3s,transform .2s;
+}
+.nav-cta:hover{background:var(--rust);transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+  padding-top:70px;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 3rem 4rem 3.5rem;gap:1.6rem;background:var(--cream);
+}
+.hero-tag{
+  font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--copper);display:flex;align-items:center;gap:.6rem;
+}
+.hero-tag::before{content:'';display:inline-block;width:26px;height:1px;background:var(--copper)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5.5vw,5rem);font-weight:600;line-height:.98;color:var(--text)}
+.hero h1 em{font-style:italic;color:var(--copper);display:block}
+.hero p{font-size:.9rem;color:var(--muted);line-height:1.8;max-width:360px}
+.hero-btns{display:flex;gap:.9rem;flex-wrap:wrap}
+.btn-main{
+  font-family:'Jost',sans-serif;font-size:.78rem;font-weight:500;
+  letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;
+  background:var(--text);color:var(--cream);border:none;border-radius:2px;cursor:pointer;
+  transition:background .3s,transform .2s;
+}
+.btn-main:hover{background:var(--copper);transform:translateY(-2px)}
+.btn-line{
+  font-family:'Jost',sans-serif;font-size:.78rem;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;padding:.85rem 2rem;
+  background:transparent;color:var(--muted);border:1px solid var(--border);
+  border-radius:2px;cursor:pointer;transition:border-color .3s,color .3s;
+}
+.btn-line:hover{border-color:var(--copper);color:var(--copper)}
+.hero-stats{display:flex;gap:2rem;padding-top:.6rem;border-top:1px solid var(--border)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:1.9rem;font-weight:600;color:var(--text);line-height:1}
+.stat-label{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.2rem}
+.hero-right{
+  position:relative;background:var(--sky);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 65% 65% at 65% 38%,rgba(255,255,255,.65) 0%,transparent 70%),
+             linear-gradient(155deg,#deeef8 0%,#c8dff0 45%,#a0c4df 100%);
+}
+.planet-wrap{position:relative;z-index:1;width:240px;height:240px}
+.planet{
+  width:240px;height:240px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#f0d9b5 0%,#d4a57a 30%,#b5703a 60%,#6b3a1a 100%);
+  box-shadow:inset -28px -18px 55px rgba(0,0,0,.25),inset 10px 10px 28px rgba(255,240,210,.3),0 18px 55px rgba(100,50,10,.2);
+}
+.ring{position:absolute;top:50%;left:50%;border-radius:50%;border:2px solid rgba(181,112,58,.22);transform:translate(-50%,-50%) rotateX(72deg)}
+.ring-1{width:300px;height:300px}
+.ring-2{width:350px;height:350px;border-width:1px;border-color:rgba(181,112,58,.1)}
+.star{position:absolute;border-radius:50%;background:rgba(60,90,120,.45)}
+.s1{width:3px;height:3px;top:10%;left:15%}
+.s2{width:2px;height:2px;top:22%;left:78%}
+.s3{width:3px;height:3px;top:72%;left:82%}
+.s4{width:2px;height:2px;top:80%;left:18%}
+.s5{width:4px;height:4px;top:45%;left:6%}
+
+/* ── SEÇÃO LABEL ── */
+.section-label{font-size:.67rem;letter-spacing:.24em;text-transform:uppercase;color:var(--copper);margin-bottom:.5rem}
+
+/* ── DESTINOS ── */
+.destinos{padding:6rem 3.5rem;background:var(--paper)}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1rem}
+.section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,3.2rem);font-weight:600;line-height:1;color:var(--text)}
+.section-head h2 em{font-style:italic;color:var(--copper)}
+.ver-todos{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.4rem;white-space:nowrap;transition:color .3s}
+.ver-todos::after{content:'→';transition:transform .3s}
+.ver-todos:hover{color:var(--copper)}
+.ver-todos:hover::after{transform:translateX(4px)}
+.destinos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.4rem}
+
+/* ╔══════════════════════════════════════╗
+   ║  TRANSIÇÃO 2 — flip 3D nos cards     ║
+   ╚══════════════════════════════════════╝ */
+.card-flip{height:320px;perspective:900px;cursor:pointer}
+.card-inner{
+  width:100%;height:100%;position:relative;
+  transform-style:preserve-3d;
+  transition:transform .7s cubic-bezier(.4,0,.2,1);
+}
+.card-flip:hover .card-inner,
+.card-flip.t2-demo .card-inner{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;border-radius:6px;backface-visibility:hidden;overflow:hidden}
+.card-front{background:var(--warm);border:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:1.6rem}
+.card-front .dest-icon{position:absolute;top:1.2rem;right:1.2rem;font-size:2.6rem;opacity:.5}
+.dest-tag{font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:.4rem}
+.card-front h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--text);line-height:1.1}
+.card-front .dist{font-size:.68rem;color:var(--muted);margin-top:.25rem;letter-spacing:.05em}
+.card-back{background:var(--copper);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:space-between;padding:1.6rem}
+.card-back h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;color:#fff;line-height:1.15}
+.card-back p{font-size:.78rem;color:rgba(255,255,255,.78);line-height:1.7}
+.card-back .preco{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;color:#fff}
+.card-back .preco span{font-family:'Jost',sans-serif;font-size:.65rem;font-weight:300;letter-spacing:.08em;opacity:.75;display:block}
+.card-back .btn-res{display:inline-block;font-size:.7rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:.6rem 1.3rem;background:#fff;color:var(--copper);border:none;border-radius:2px;cursor:pointer;margin-top:.7rem;transition:background .25s}
+.card-back .btn-res:hover{background:var(--cream)}
+
+/* ── DEPOIMENTOS ── */
+.depoimentos{background:var(--cream);padding:5.5rem 3.5rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.depoimentos h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,3rem);font-weight:600;color:var(--text);margin-bottom:.4rem}
+.depoimentos>p{font-size:.86rem;color:var(--muted);margin-bottom:2.8rem;line-height:1.75;max-width:400px}
+.dep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem}
+
+/* ╔══════════════════════════════════════╗
+   ║  TRANSIÇÃO 3 — elevação + sombra     ║
+   ╚══════════════════════════════════════╝ */
+.dep-card{
+  background:var(--paper);border:1px solid var(--border);
+  border-radius:6px;padding:1.8rem;
+  display:flex;flex-direction:column;gap:1.1rem;cursor:default;
+  transition:
+    transform  .4s cubic-bezier(.25,.8,.25,1),
+    box-shadow .4s cubic-bezier(.25,.8,.25,1),
+    border-color .4s ease;
+}
+.dep-card:hover,
+.dep-card.t3-demo{
+  transform:translateY(-10px);
+  box-shadow:0 28px 50px rgba(100,70,30,.13),0 8px 18px rgba(100,70,30,.09);
+  border-color:var(--sand);
+}
+.stars{color:var(--copper);font-size:.85rem;letter-spacing:.1em}
+.dep-card blockquote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.02rem;color:var(--text);line-height:1.65;border:none}
+.dep-author{display:flex;align-items:center;gap:.85rem;padding-top:.75rem;border-top:1px solid var(--border)}
+.avatar{width:38px;height:38px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;color:var(--copper);flex-shrink:0}
+.author-name{font-size:.8rem;font-weight:500;color:var(--text)}
+.author-dest{font-size:.68rem;color:var(--muted);letter-spacing:.05em;margin-top:.1rem}
+
+/* ── LEGENDA DAS TRANSIÇÕES ── */
+.legend{
+  background:var(--paper);padding:4rem 3.5rem;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;
+  border-top:1px solid var(--border);
+}
+.legend-title{
+  grid-column:1/-1;
+  font-size:.67rem;letter-spacing:.24em;text-transform:uppercase;color:var(--copper);
+  margin-bottom:-.4rem;
+}
+.leg-card{
+  background:var(--warm);border:1px solid var(--border);border-radius:6px;
+  padding:1.4rem 1.6rem;
+}
+.leg-num{
+  font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;
+  color:var(--copper);line-height:1;margin-bottom:.4rem;
+}
+.leg-card h4{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:.35rem}
+.leg-card p{font-size:.78rem;color:var(--muted);line-height:1.65}
+.leg-card code{font-size:.72rem;background:var(--border);padding:.1em .4em;border-radius:3px;color:var(--rust)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--text);color:var(--sand);
+  padding:2.5rem 3.5rem;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;letter-spacing:.1em;color:var(--cream)}
+.footer-logo em{font-style:italic;color:var(--copper)}
+footer p{font-size:.7rem;color:var(--muted);letter-spacing:.07em}
+.footer-links{display:flex;gap:1.6rem;list-style:none}
+.footer-links a{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.footer-links a:hover{color:var(--sand)}
+
+@media(max-width:760px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .hero{grid-template-columns:1fr}
+  .hero-right{height:280px}
+  .destinos,.depoimentos,.legend{padding:4rem 1.5rem}
+  footer{padding:2rem 1.5rem;flex-direction:column;align-items:flex-start}
+}
+</style>
 </head>
 <body>
 
-  <header>
-    <div class="badge">CSS</div>
-    <h1>Transition<br/><span>Properties</span></h1>
-    <p class="subtitle">Passe o mouse sobre cada card para ver a mágica</p>
-  </header>
+<nav>
+  <div class="logo">AURÉA <em>Voyages</em></div>
+  <ul class="nav-links">
+    <li><a href="#destinos" id="link1">Destinos</a></li>
+    <li><a href="#" id="link2">Experiências</a></li>
+    <li><a href="#" id="link3">Frota</a></li>
+    <li><a href="#" id="link4">Sobre</a></li>
+  </ul>
+  <button class="nav-cta">Reservar</button>
+</nav>
 
-  <section>
-    <div class="section-label">
-      <span class="prop-tag">transition-property</span>
-      <p>Define <strong>qual propriedade CSS</strong> será animada. Pode ser uma específica (color, transform…) ou <code>all</code>.</p>
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-tag">Temporada 2047 aberta</span>
+    <h1>VIAGENS<br>ALÉM DO<br><em>Possível</em></h1>
+    <p>Da órbita terrestre às luas de Saturno — a Auréa Voyages cria experiências interplanetárias para quem recusa o ordinário.</p>
+    <div class="hero-btns">
+      <button class="btn-main">Explorar Destinos</button>
+      <button class="btn-line">Nossa Frota</button>
     </div>
-    <div class="cards-row">
-      <div class="card card-prop-color">
-        <div class="card-inner">
-          <code>transition-property: color</code>
-          <p class="card-desc">Apenas a <strong>cor do texto</strong> anima</p>
-          <div class="demo-box box-color">Hover aqui</div>
-        </div>
-      </div>
-      <div class="card card-prop-bg">
-        <div class="card-inner">
-          <code>transition-property: background-color</code>
-          <p class="card-desc">Apenas o <strong>fundo</strong> muda</p>
-          <div class="demo-box box-bg">Hover aqui</div>
-        </div>
-      </div>
-      <div class="card card-prop-transform">
-        <div class="card-inner">
-          <code>transition-property: transform</code>
-          <p class="card-desc">Apenas a <strong>escala/rotação</strong> anima</p>
-          <div class="demo-box box-transform">Hover aqui</div>
-        </div>
-      </div>
-      <div class="card card-prop-all">
-        <div class="card-inner">
-          <code>transition-property: all</code>
-          <p class="card-desc"><strong>Todas</strong> as propriedades animam juntas</p>
-          <div class="demo-box box-all">Hover aqui</div>
-        </div>
-      </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">340+</div><div class="stat-label">Viagens</div></div>
+      <div><div class="stat-num">12</div><div class="stat-label">Destinos</div></div>
+      <div><div class="stat-num">98%</div><div class="stat-label">Satisfação</div></div>
     </div>
-  </section>
+  </div>
+  <div class="hero-right">
+    <div class="planet-wrap">
+      <div class="ring ring-1"></div>
+      <div class="ring ring-2"></div>
+      <div class="planet"></div>
+      <div class="star s1"></div><div class="star s2"></div>
+      <div class="star s3"></div><div class="star s4"></div><div class="star s5"></div>
+    </div>
+  </div>
+</section>
 
-  <section>
-    <div class="section-label">
-      <span class="prop-tag">transition-duration</span>
-      <p>Define <strong>quanto tempo</strong> a transição leva. Valores em segundos (s) ou milissegundos (ms).</p>
+<section class="destinos" id="destinos">
+  <div class="section-head">
+    <div>
+      <p class="section-label">// Destinos em destaque</p>
+      <h2>ONDE VOCÊ<br>QUER <em>Chegar?</em></h2>
     </div>
-    <div class="cards-row">
-      <div class="card">
-        <div class="card-inner">
-          <code>duration: 0.1s</code>
-          <p class="card-desc">Quase instantânea</p>
-          <div class="demo-box dur-01">Hover aqui</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-inner">
-          <code>duration: 0.5s</code>
-          <p class="card-desc">Rápida e snappy</p>
-          <div class="demo-box dur-05">Hover aqui</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-inner">
-          <code>duration: 1.5s</code>
-          <p class="card-desc">Suave e fluida</p>
-          <div class="demo-box dur-15">Hover aqui</div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-inner">
-          <code>duration: 3s</code>
-          <p class="card-desc">Lenta e dramática</p>
-          <div class="demo-box dur-3">Hover aqui</div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <a href="#" class="ver-todos">Ver todos os destinos</a>
+  </div>
+  <div class="destinos-grid">
 
-  <section>
-    <div class="section-label">
-      <span class="prop-tag">transition-timing-function</span>
-      <p>Define a <strong>curva de aceleração</strong>. Controla como a velocidade varia ao longo da transição.</p>
-    </div>
-    <div class="cards-row">
-      <div class="card">
-        <div class="card-inner">
-          <code>ease</code>
-          <p class="card-desc">Começa devagar, acelera, desacelera</p>
-          <div class="demo-box timing-ease">Hover aqui</div>
-          <div class="timing-track"><div class="timing-ball ball-ease"></div></div>
+    <div class="card-flip" id="card1">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="dest-icon">🪐</div>
+          <p class="dest-tag">Sistema Solar Externo</p>
+          <h3>Lua de<br>Titã</h3>
+          <p class="dist">1,2 bi km · 8 meses</p>
         </div>
-      </div>
-      <div class="card">
-        <div class="card-inner">
-          <code>linear</code>
-          <p class="card-desc">Velocidade constante do início ao fim</p>
-          <div class="demo-box timing-linear">Hover aqui</div>
-          <div class="timing-track"><div class="timing-ball ball-linear"></div></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-inner">
-          <code>ease-in-out</code>
-          <p class="card-desc">Devagar nas duas pontas</p>
-          <div class="demo-box timing-eio">Hover aqui</div>
-          <div class="timing-track"><div class="timing-ball ball-eio"></div></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-inner">
-          <code>cubic-bezier(.68,-0.55,.27,1.55)</code>
-          <p class="card-desc">Efeito de <em>bounce</em> elástico</p>
-          <div class="demo-box timing-bounce">Hover aqui</div>
-          <div class="timing-track"><div class="timing-ball ball-bounce"></div></div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-inner">
-          <code>steps(5, end)</code>
-          <p class="card-desc">Saltos discretos — efeito digital</p>
-          <div class="demo-box timing-steps">Hover aqui</div>
-          <div class="timing-track"><div class="timing-ball ball-steps"></div></div>
+        <div class="card-face card-back">
+          <h3>Lua de Titã</h3>
+          <p>Lagos de metano, atmosfera laranja e pôr do sol de Saturno ao fundo.</p>
+          <div>
+            <div class="preco">€ 4.200.000<span>por pessoa, ida e volta</span></div>
+            <button class="btn-res">Reservar Agora</button>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <section>
-    <div class="section-label">
-      <span class="prop-tag">shorthand</span>
-      <p>Todas as três propriedades em uma linha: <code>transition: [property] [duration] [timing-function] [delay]</code></p>
-    </div>
-    <div class="cards-row">
-      <div class="card card-wide">
-        <div class="card-inner">
-          <code>transition: all 0.6s cubic-bezier(.68,-0.55,.27,1.55)</code>
-          <p class="card-desc">Combinação completa — propriedade + duração + curva</p>
-          <div class="demo-box box-shorthand">Hover aqui para ver tudo junto</div>
+    <div class="card-flip" id="card2">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="dest-icon">🔴</div>
+          <p class="dest-tag">Planeta Vermelho</p>
+          <h3>Monte<br>Olimpo</h3>
+          <p class="dist">225 mi km · 7 meses</p>
+        </div>
+        <div class="card-face card-back">
+          <h3>Monte Olimpo</h3>
+          <p>O maior vulcão do sistema solar. Trekking até a cratera com vista de 600 km.</p>
+          <div>
+            <div class="preco">€ 890.000<span>por pessoa, ida e volta</span></div>
+            <button class="btn-res">Reservar Agora</button>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <footer>
-    <p>Página 1 de 2 · <strong>CSS Transition Properties</strong></p>
-  </footer>
+    <div class="card-flip" id="card3">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="dest-icon">🌙</div>
+          <p class="dest-tag">Satélite Natural</p>
+          <h3>Orla<br>Lunar</h3>
+          <p class="dist">384.400 km · 3 dias</p>
+        </div>
+        <div class="card-face card-back">
+          <h3>Orla Lunar</h3>
+          <p>Pousada de luxo na base Selene, caminhada extravehicular e jantar com vista da Terra.</p>
+          <div>
+            <div class="preco">€ 420.000<span>por pessoa, ida e volta</span></div>
+            <button class="btn-res">Reservar Agora</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-flip" id="card4">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="dest-icon">💫</div>
+          <p class="dest-tag">Órbita Alta</p>
+          <h3>Estação<br>Zenith</h3>
+          <p class="dist">36.000 km · 12 horas</p>
+        </div>
+        <div class="card-face card-back">
+          <h3>Estação Zenith</h3>
+          <p>Flutue em microgravidade e assista 16 amanheceres em 24 horas a bordo.</p>
+          <div>
+            <div class="preco">€ 180.000<span>por pessoa, ida e volta</span></div>
+            <button class="btn-res">Reservar Agora</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="depoimentos">
+  <p class="section-label">// Viajantes Auréa</p>
+  <h2>O Que Dizem<br>Nossos Clientes</h2>
+  <p>Cada viagem é única. Cada relato, inesquecível.</p>
+  <div class="dep-grid">
+
+    <div class="dep-card" id="dep1">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Ver a Terra do tamanho de uma bola de gude pela janela da Zenith foi o momento mais transformador da minha vida."</blockquote>
+      <div class="dep-author">
+        <div class="avatar">IS</div>
+        <div><div class="author-name">Isabella Sorrentino</div><div class="author-dest">Estação Zenith · Março 2046</div></div>
+      </div>
+    </div>
+
+    <div class="dep-card" id="dep2">
+      <div class="stars">★★★★★</div>
+      <blockquote>"O silêncio em Titã é absoluto. A chuva de metano, poética. Nunca imaginei que poesia existisse fora da Terra."</blockquote>
+      <div class="dep-author">
+        <div class="avatar">KM</div>
+        <div><div class="author-name">Kenji Murakami</div><div class="author-dest">Lua de Titã · Novembro 2045</div></div>
+      </div>
+    </div>
+
+    <div class="dep-card" id="dep3">
+      <div class="stars">★★★★★</div>
+      <blockquote>"Subir o Monte Olimpo ao amanhecer marciano, com Fobos no horizonte, foi algo para o qual não existem palavras."</blockquote>
+      <div class="dep-author">
+        <div class="avatar">CB</div>
+        <div><div class="author-name">Camille Beaumont</div><div class="author-dest">Monte Olimpo · Julho 2046</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LEGENDA DAS TRANSIÇÕES -->
+<div class="legend">
+  <p class="legend-title">// As 3 transições CSS desta página</p>
+
+  <div class="leg-card">
+    <div class="leg-num">01</div>
+    <h4>Links do Menu</h4>
+    <p>Passe o mouse nos links da navbar. A cor muda para cobre, o espaçamento aumenta e um sublinhado desliza da esquerda para a direita.<br><br>
+    <code>transition: color .4s ease, letter-spacing .4s ease</code></p>
+  </div>
+
+  <div class="leg-card">
+    <div class="leg-num">02</div>
+    <h4>Cards de Destino</h4>
+    <p>Passe o mouse em qualquer card de destino. Ele vira 180° revelando o verso com preço e botão de reserva.<br><br>
+    <code>transition: transform .7s cubic-bezier(…)</code><br>
+    <code>transform: rotateY(180deg)</code></p>
+  </div>
+
+  <div class="leg-card">
+    <div class="leg-num">03</div>
+    <h4>Cards de Depoimento</h4>
+    <p>Passe o mouse nos depoimentos. O card sobe 10px e ganha uma sombra elegante, destacando-se da superfície.<br><br>
+    <code>transition: transform .4s, box-shadow .4s</code><br>
+    <code>transform: translateY(-10px)</code></p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">AURÉA <em>Voyages</em></div>
+  <ul class="footer-links">
+    <li><a href="#">Privacidade</a></li>
+    <li><a href="#">Termos</a></li>
+    <li><a href="#">Contato</a></li>
+  </ul>
+  <p>© 2047 Auréa Voyages</p>
+</footer>
+
+<script>
+// Demonstração automática das 3 transições em loop
+// para que fiquem visíveis mesmo sem interação do mouse
+
+const links   = document.querySelectorAll('.nav-links a');
+const cards   = document.querySelectorAll('.card-flip');
+const deps    = document.querySelectorAll('.dep-card');
+
+function cycle(elements, cls, onDuration, offDuration, stagger) {
+  elements.forEach((el, i) => {
+    const delay = i * stagger;
+    setTimeout(function run() {
+      el.classList.add(cls);
+      setTimeout(() => {
+        el.classList.remove(cls);
+        setTimeout(run, offDuration + elements.length * stagger);
+      }, onDuration);
+    }, delay);
+  });
+}
+
+// T1 — links: liga em sequência a cada 800ms, fica 900ms, pausa total ~5s
+cycle(links, 't1-demo', 900, 4200, 700);
+
+// T2 — card flip: um de cada vez, fica virado 1.4s, pausa 4s entre ciclos
+cycle(cards, 't2-demo', 1400, 5200, 900);
+
+// T3 — depoimentos: sobem juntos por 1s, pausa 4s
+cycle(deps,  't3-demo', 1100, 4500, 300);
+</script>
 
 </body>
 </html>
