@@ -1,117 +1,162 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emoji Sorrindo </title>
-    <style>
-        /* Variáveis de Design (CSS3) */
-        :root {
-            --bg-color: #ffffff;
-            --primary-color: #ffcc00;
-            --text-dark: #2d3436;
-            --emoji-size: 144px;
-            --transition-smooth: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-
-        /* Alinhamento Perfeito com Flexbox */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: var(--bg-color);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            overflow: hidden;
-        }
-
-        /* Estilização do Emoji com Efeitos CSS3 */
-        .emoji-central {
-            font-size: var(--emoji-size);
-            line-height: 1;
-            cursor: pointer;
-            user-select: none;
-
-            /* Filtro drop-shadow (melhor que box-shadow para emojis) */
-            filter: drop-shadow(0 15px 20px rgba(0,0,0,0.1));
-            
-            /* Transição e Animação */
-            transition: var(--transition-smooth);
-            animation: bounceIn 1.2s ease-out;
-        }
-
-        /* Interatividade: Crescer e Girar no Hover */
-        .emoji-central:hover {
-            transform: scale(1.2) rotate(10deg);
-            filter: drop-shadow(0 20px 30px rgba(255, 204, 0, 0.4));
-        }
-
-        /* Animação de Entrada Estilo "Bounce" */
-        @keyframes bounceIn {
-            0% { transform: scale(0); opacity: 0; }
-            70% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); }
-        }
-
-        /* Navegação Estilizada */
-        nav {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 25px;
-            list-style: none;
-            padding: 0;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        /* Efeito de linha no menu (CSS3 Pseudo-elements) */
-        nav a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSS Transitions — Propriedades</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Sobre</a></li>
-            <li><a href="#">Contato</a></li>
-        </ul>
-    </nav>
+  <header>
+    <div class="badge">CSS</div>
+    <h1>Transition<br/><span>Properties</span></h1>
+    <p class="subtitle">Passe o mouse sobre cada card para ver a mágica</p>
+  </header>
 
-    <main>
-        <!-- O emoji 😊 é um caractere disponível nativamente -->
-        <div class="emoji-central" role="img" aria-label="Rosto Sorrindo">
-            😊
+  <section>
+    <div class="section-label">
+      <span class="prop-tag">transition-property</span>
+      <p>Define <strong>qual propriedade CSS</strong> será animada. Pode ser uma específica (color, transform…) ou <code>all</code>.</p>
+    </div>
+    <div class="cards-row">
+      <div class="card card-prop-color">
+        <div class="card-inner">
+          <code>transition-property: color</code>
+          <p class="card-desc">Apenas a <strong>cor do texto</strong> anima</p>
+          <div class="demo-box box-color">Hover aqui</div>
         </div>
-    </main>
+      </div>
+      <div class="card card-prop-bg">
+        <div class="card-inner">
+          <code>transition-property: background-color</code>
+          <p class="card-desc">Apenas o <strong>fundo</strong> muda</p>
+          <div class="demo-box box-bg">Hover aqui</div>
+        </div>
+      </div>
+      <div class="card card-prop-transform">
+        <div class="card-inner">
+          <code>transition-property: transform</code>
+          <p class="card-desc">Apenas a <strong>escala/rotação</strong> anima</p>
+          <div class="demo-box box-transform">Hover aqui</div>
+        </div>
+      </div>
+      <div class="card card-prop-all">
+        <div class="card-inner">
+          <code>transition-property: all</code>
+          <p class="card-desc"><strong>Todas</strong> as propriedades animam juntas</p>
+          <div class="demo-box box-all">Hover aqui</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <span class="prop-tag">transition-duration</span>
+      <p>Define <strong>quanto tempo</strong> a transição leva. Valores em segundos (s) ou milissegundos (ms).</p>
+    </div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-inner">
+          <code>duration: 0.1s</code>
+          <p class="card-desc">Quase instantânea</p>
+          <div class="demo-box dur-01">Hover aqui</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <code>duration: 0.5s</code>
+          <p class="card-desc">Rápida e snappy</p>
+          <div class="demo-box dur-05">Hover aqui</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <code>duration: 1.5s</code>
+          <p class="card-desc">Suave e fluida</p>
+          <div class="demo-box dur-15">Hover aqui</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <code>duration: 3s</code>
+          <p class="card-desc">Lenta e dramática</p>
+          <div class="demo-box dur-3">Hover aqui</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <span class="prop-tag">transition-timing-function</span>
+      <p>Define a <strong>curva de aceleração</strong>. Controla como a velocidade varia ao longo da transição.</p>
+    </div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-inner">
+          <code>ease</code>
+          <p class="card-desc">Começa devagar, acelera, desacelera</p>
+          <div class="demo-box timing-ease">Hover aqui</div>
+          <div class="timing-track"><div class="timing-ball ball-ease"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <code>linear</code>
+          <p class="card-desc">Velocidade constante do início ao fim</p>
+          <div class="demo-box timing-linear">Hover aqui</div>
+          <div class="timing-track"><div class="timing-ball ball-linear"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <code>ease-in-out</code>
+          <p class="card-desc">Devagar nas duas pontas</p>
+          <div class="demo-box timing-eio">Hover aqui</div>
+          <div class="timing-track"><div class="timing-ball ball-eio"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <code>cubic-bezier(.68,-0.55,.27,1.55)</code>
+          <p class="card-desc">Efeito de <em>bounce</em> elástico</p>
+          <div class="demo-box timing-bounce">Hover aqui</div>
+          <div class="timing-track"><div class="timing-ball ball-bounce"></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-inner">
+          <code>steps(5, end)</code>
+          <p class="card-desc">Saltos discretos — efeito digital</p>
+          <div class="demo-box timing-steps">Hover aqui</div>
+          <div class="timing-track"><div class="timing-ball ball-steps"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">
+      <span class="prop-tag">shorthand</span>
+      <p>Todas as três propriedades em uma linha: <code>transition: [property] [duration] [timing-function] [delay]</code></p>
+    </div>
+    <div class="cards-row">
+      <div class="card card-wide">
+        <div class="card-inner">
+          <code>transition: all 0.6s cubic-bezier(.68,-0.55,.27,1.55)</code>
+          <p class="card-desc">Combinação completa — propriedade + duração + curva</p>
+          <div class="demo-box box-shorthand">Hover aqui para ver tudo junto</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Página 1 de 2 · <strong>CSS Transition Properties</strong></p>
+  </footer>
 
 </body>
 </html>
